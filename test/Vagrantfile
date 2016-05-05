@@ -4,13 +4,6 @@ update-grub
 echo "Europe/Amsterdam" | tee /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
-useradd jan -m
-echo jan:jan | /usr/sbin/chpasswd
-usermod -G sudo jan
-usermod -s /bin/bash jan
-mkdir -p /home/jan/.ssh
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVZbKDrYnRDEkDjvUUt2NcmRhrQAQh0W9ZeW1gNrZ3vE7q38zOzzpg8W1tovRfVu2nVznybEWtx/3rsJnRauzP3GVgzbKJY1g8YwRwQw6gSJYNtkwfaO2AfkAVWO3r378EH//xD2O4bJ3xwWTrr7aXIQGEoAcHBFGlAko0nWwn13VTa6Hp5cZULi+qgGKaQTSJHQ+jvP8puf7efbLs1bHsxCXUn72aFdeyDGS0F9MuIeyZneHVpwKtmKWZXAoac9E7zdeiSiV+vq4YBLmntQoC0uHYuQ9w1uyw0+QeO6fE05vMuSzrO5eWShCeXJPAOMwfPv6xt3+Pb/n9FBIkCWqH jvermeir@hotmail.com" >> /home/jan/.ssh/authorized_keys
-
 sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D

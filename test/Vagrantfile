@@ -4,6 +4,11 @@ update-grub
 echo "Europe/Amsterdam" | tee /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
+useradd dev -m -s /bin/bash 
+usermod -G sudo dev
+mkdir -p /home/dev/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxM1lW9AEOChXGk6m1dq3KZWm14IzEinXYYxIu+twwX1rOlTvt9nIV/qlCzfsdXCD4ut8KpKWNtrj5+49/rzo+147Tc/T5QuEZlY2d9j889QOrmb7y+4lcLQBp87wtn21yyamjiQjHq9REHHNt7m8negN99Cv/oTno+ib8hqxOgMqgMgG5iKKNoFQeEsON/erWzAOJrWdw+3lWFg/LwQScqOkIZSL3oSliuv47Q4eTWb5OdprX9/IIxETRKXPuosl17KQFWJMkZAxE3kQoMCIWW+tvukI8tG/C/WPEy64kGx6oBbHJyPaWpN4AvAYtAysT6YIAlfMgwbBwHl5ufafD dev@dev" >> /home/dev/.ssh/authorized_keys
+
 sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
@@ -27,11 +32,12 @@ Vagrant.configure(2) do |config|
   config.vm.network 'private_network', ip: '192.168.168.169'
 
   config.vm.provider :virtualbox do |vb|
-    vb.gui = true
-    vb.name = "aapv2"
+    vb.gui = false
+    vb.name = "vm_dev"
     vb.customize ['modifyvm', :id, '--memory', 2048]
   end
 
-  config.vm.synced_folder "/Users/jan/dev/docker/", "/src/", type: "nfs"
+  config.vm.synced_folder "/Users/jan/dev/docker/", "/src", type: "nfs"
   config.vm.provision 'shell', inline: $installation
 end
+
